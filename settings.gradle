@@ -1,0 +1,4 @@
+include ':app'
+include ':easylog-annotations'
+include ':easylog-runtime'
+include ':easylog-plugin'
