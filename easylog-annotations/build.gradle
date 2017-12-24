@@ -1,0 +1,20 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+// 上传到本地代码库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+            pom.groupId = "com.ucsunup.easylog"
+            pom.artifactId = 'easylog-annotations'
+            pom.version = '1.0.0'
+        }
+    }
+}
