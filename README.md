@@ -1,7 +1,7 @@
 EasyLog
 ========
 
-You can visit [The website](Https://uscunup.github.io/EasyLog/)
+You can visit [The website](Https://ucsunup.github.io/EasyLog/)
 
 You can use the [editor on GitHub](https://github.com/ucsunup/EasyLog/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
