@@ -76,7 +76,9 @@ android.libraryVariants.all { variant ->
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('../repo'))
+            repository(url: "${NEXUS_URL}/repository/maven-dev/") {
+                authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
+            }
             pom.groupId = "com.ucsunup.easylog"
             pom.artifactId = 'easylog-runtime'
             pom.version = '1.0.0'

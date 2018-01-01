@@ -21,7 +21,7 @@ allprojects {
         jcenter()
         google()
         maven {
-            url uri('../repo')
+            url uri('http://localhost:8081/repository/maven-dev/')
         }
     }
     apply plugin: 'maven'

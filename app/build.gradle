@@ -5,16 +5,13 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
-//        maven {
-//            Paths.get(System.getProperty("user.home") + "/MyData/Data/Maven/").toUri()
-//        }
         maven {
-            url uri("../repo")
+            url uri("http://localhost:8081/repository/maven-dev/")
         }
     }
 
     dependencies {
-        classpath 'com.ucsunup.easylog:easylog-plugin:1.0-SNAPSHOT'
+        classpath 'com.ucsunup.easylog:easylog-plugin:1.0.0'
     }
 }
 
