@@ -1,4 +1,4 @@
-package com.ucsunup.easylog.weaving.internal;
+package com.ucsunup.easylog.weaving;
 
 /**
  * Created by ucsunup on 2017/12/5.

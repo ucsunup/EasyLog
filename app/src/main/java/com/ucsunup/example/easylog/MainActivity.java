@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.ucsunup.easylog.annotations.Logit;
+import com.ucsunup.easylog.weaving.internal.EasyLogAspect;
 
 public class MainActivity extends AppCompatActivity {
 

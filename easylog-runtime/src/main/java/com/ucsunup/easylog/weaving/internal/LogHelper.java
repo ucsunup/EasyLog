@@ -6,6 +6,7 @@ import android.os.Trace;
 import android.util.Log;
 
 import com.ucsunup.easylog.annotations.Logit;
+import com.ucsunup.easylog.weaving.EasyLog;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -25,6 +26,12 @@ public class LogHelper {
         enterMethod(joinPoint, null);
     }
 
+    /**
+     * Enter method advice
+     *
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @param logit     {@link Logit}
+     */
     public static void enterMethod(ProceedingJoinPoint joinPoint, Logit logit) {
         if (!EasyLog.enable) {
             return;
@@ -69,6 +76,14 @@ public class LogHelper {
         exitMethod(joinPoint, null, result, costTime);
     }
 
+    /**
+     * Exit method advice
+     *
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @param logit     {@link Logit}
+     * @param result    method return object
+     * @param costTime  method cost time
+     */
     public static void exitMethod(ProceedingJoinPoint joinPoint, Logit logit,
                                   Object result, long costTime) {
         if (!EasyLog.enable) {
@@ -104,6 +119,12 @@ public class LogHelper {
         Log.v(asTag(cls), builder.toString());
     }
 
+    /**
+     * Generate log tag by cls
+     *
+     * @param cls method's class
+     * @return
+     */
     private static String asTag(Class<?> cls) {
         if (cls.isAnonymousClass()) {
             return asTag(cls.getEnclosingClass());

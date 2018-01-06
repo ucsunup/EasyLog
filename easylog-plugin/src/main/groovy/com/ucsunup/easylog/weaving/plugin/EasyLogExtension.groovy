@@ -8,6 +8,6 @@ class EasyLogExtension {
     }
 
     def getEnabled() {
-        return enabled;
+        return enabled
     }
 }

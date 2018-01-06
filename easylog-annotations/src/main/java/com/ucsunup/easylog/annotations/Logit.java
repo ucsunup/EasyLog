@@ -1,5 +1,7 @@
 package com.ucsunup.easylog.annotations;
 
+import com.ucsunup.easylog.Type;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +20,6 @@ import java.lang.annotation.Target;
 })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Logit {
-    enum Type {Debug, Release}
 
     /**
      * Define the log type
@@ -26,6 +27,13 @@ public @interface Logit {
      * @return log type
      */
     Type type() default Type.Debug;
+
+    /**
+     * Set if print out parameters of method
+     *
+     * @return true, print.
+     */
+    boolean printArgs() default true;
 
     /**
      * Append string to log
