@@ -21,7 +21,7 @@ allprojects {
         jcenter()
         google()
         maven {
-            url uri('http://localhost:8081/repository/maven-dev/')
+            url uri("${NEXUS_URL}")
         }
     }
     apply plugin: 'maven'

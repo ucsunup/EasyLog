@@ -36,10 +36,7 @@ class EasyLogPlugin implements Plugin<Project> {
         project.extensions.create("easylog", EasyLogExtension)
 
         variants.all { varient ->
-            if (!varient.buildType.isDebuggable()) {
-                log.debug("Skip not debuggable buildType: '{$varient.buildType.name}'")
-                return
-            } else if (!project.easylog.enabled) {
+            if (!project.easylog.enabled) {
                 log.debug("EasyLog is close.")
                 return
             }

@@ -3,10 +3,12 @@ package com.ucsunup.easylog.weaving.internal;
 import android.os.Build;
 import android.os.Looper;
 import android.os.Trace;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.ucsunup.easylog.annotations.Logit;
-import com.ucsunup.easylog.weaving.EasyLog;
+import com.ucsunup.easylog.EasyLog;
+import com.ucsunup.easylog.Level;
+import com.ucsunup.easylog.annotations.Loga;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -19,7 +21,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 public class LogHelper {
 
-    public static volatile Logit.Type mType = Logit.Type.Debug;
+    public static volatile Level mLevel = EasyLog.getLevel();
     private static final String TAG = "EasyLog-";
 
     public static void enterMethod(ProceedingJoinPoint joinPoint) {
@@ -30,15 +32,11 @@ public class LogHelper {
      * Enter method advice
      *
      * @param joinPoint {@link ProceedingJoinPoint}
-     * @param logit     {@link Logit}
+     * @param loga      {@link Loga}
      */
-    public static void enterMethod(ProceedingJoinPoint joinPoint, Logit logit) {
-        if (!EasyLog.enable) {
+    public static void enterMethod(ProceedingJoinPoint joinPoint, Loga loga) {
+        if (!enableLog(loga)) {
             return;
-        }
-
-        if (logit != null) {
-            Log.d("heiheihei", "easyLog type = " + logit.type() + ", append = " + logit.append());
         }
 
         CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
@@ -49,14 +47,16 @@ public class LogHelper {
 
         StringBuilder builder = new StringBuilder("\u21e2 ");
         builder.append(methodName).append('(');
-        for (int i = 0; i < parameterNames.length; i++) {
-            if (i > 0) {
-                builder.append(", ");
-            }
+        if (loga.printArgs()) {
+            for (int i = 0; i < parameterNames.length; i++) {
+                if (i > 0) {
+                    builder.append(", ");
+                }
 
-            builder.append(parameterNames[i])
-                    .append("=")
-                    .append(Strings.toString(parameterValues[i]));
+                builder.append(parameterNames[i])
+                        .append("=")
+                        .append(Strings.toString(parameterValues[i]));
+            }
         }
         builder.append(')');
 
@@ -64,7 +64,7 @@ public class LogHelper {
             builder.append(" [Thread:\"").append(Thread.currentThread().getName()).append("\"]");
         }
 
-        Log.v(asTag(cls), builder.toString());
+        logInternal(loga.level(), asTag(cls), builder.toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final String section = builder.toString().substring(2);
@@ -80,21 +80,17 @@ public class LogHelper {
      * Exit method advice
      *
      * @param joinPoint {@link ProceedingJoinPoint}
-     * @param logit     {@link Logit}
+     * @param loga      {@link Loga}
      * @param result    method return object
      * @param costTime  method cost time
      */
-    public static void exitMethod(ProceedingJoinPoint joinPoint, Logit logit,
+    public static void exitMethod(ProceedingJoinPoint joinPoint, Loga loga,
                                   Object result, long costTime) {
-        if (!EasyLog.enable) {
+        if (!enableLog(loga)) {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Trace.endSection();
-        }
-
-        if (logit != null) {
-            Log.d("heiheihei", "easyLog exit type = " + logit.type() + ", append = " + logit.append());
         }
 
         Signature signature = joinPoint.getSignature();
@@ -116,7 +112,40 @@ public class LogHelper {
             builder.append(Strings.toString(result));
         }
 
-        Log.v(asTag(cls), builder.toString());
+        logInternal(loga.level(), asTag(cls), builder.toString());
+    }
+
+    /**
+     * Log info internal
+     *
+     * @param level {@link Level}
+     * @param key   log key
+     * @param info  log info
+     */
+    public static void logInternal(Level level, String key, String info) {
+        if (!enableLog(level)) {
+            return;
+        }
+
+        switch (level) {
+            case VERBOSE:
+                Log.v(key, info);
+                break;
+            case DEBUG:
+                Log.d(key, info);
+                break;
+            case INFO:
+                Log.i(key, info);
+                break;
+            case WARN:
+                Log.w(key, info);
+                break;
+            case ERROR:
+                Log.e(key, info);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -130,5 +159,36 @@ public class LogHelper {
             return asTag(cls.getEnclosingClass());
         }
         return TAG + cls.getSimpleName();
+    }
+
+    /**
+     * Check current if log enable by {@link Loga}.
+     *
+     * @param loga {@link Loga}
+     * @return
+     */
+    private static boolean enableLog(Loga loga) {
+        if (!EasyLog.enable()) {
+            return false;
+        }
+
+        if (loga == null) {
+            return false;
+        }
+
+        return enableLog(loga.level());
+    }
+
+    /**
+     * Check current if log enable by {@link Level}
+     *
+     * @param level log level
+     * @return
+     */
+    private static boolean enableLog(Level level) {
+        if (level.ordinal() < mLevel.ordinal()) {
+            return false;
+        }
+        return true;
     }
 }

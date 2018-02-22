@@ -1,6 +1,6 @@
 package com.ucsunup.easylog.annotations;
 
-import com.ucsunup.easylog.Type;
+import com.ucsunup.easylog.Level;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,14 +19,14 @@ import java.lang.annotation.Target;
         ElementType.LOCAL_VARIABLE
 })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Logit {
+public @interface Loga {
 
     /**
      * Define the log type
      *
      * @return log type
      */
-    Type type() default Type.Debug;
+    Level level() default Level.VERBOSE;
 
     /**
      * Set if print out parameters of method
@@ -34,11 +34,4 @@ public @interface Logit {
      * @return true, print.
      */
     boolean printArgs() default true;
-
-    /**
-     * Append string to log
-     *
-     * @return
-     */
-    String append() default "";
 }

@@ -11,12 +11,12 @@ targetCompatibility = "1.7"
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "${NEXUS_URL}/repository/maven-dev/") {
+            repository(url: "${NEXUS_URL}") {
                 authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
             }
             pom.groupId = "com.ucsunup.easylog"
             pom.artifactId = 'easylog-annotations'
-            pom.version = '1.0.0'
+            pom.version = "${VERSION_CODE}"
         }
     }
 }

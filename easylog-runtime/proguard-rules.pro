@@ -20,6 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.ucsunup.easylog.weaving.EasyLog {
-    public **;
+-keep class com.ucsunup.easylog.EasyLog {
+    public *;
+}
+-keep class com.ucsunup.easylog.Logi {
+    public *;
 }

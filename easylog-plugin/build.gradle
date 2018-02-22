@@ -1,9 +1,7 @@
-group 'com.ucsunup'
-version '1.0.0'
-
 apply plugin: 'groovy'
 
-sourceCompatibility = 1.8
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
 
 repositories {
     jcenter()
@@ -23,13 +21,12 @@ dependencies {
 uploadArchives {
     repositories {
         mavenDeployer {
-            print group
-            repository(url: "${NEXUS_URL}/repository/maven-dev/") {
+            repository(url: "${NEXUS_URL}") {
                 authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
             }
             pom.groupId = "com.ucsunup.easylog"
             pom.artifactId = 'easylog-plugin'
-            pom.version = version
+            pom.version = "${VERSION_CODE}"
         }
     }
 }

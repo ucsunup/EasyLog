@@ -35,7 +35,7 @@ public class DebugLogAspect {
 //    }
 //
 //    public static void setEnable(boolean enable) {
-//        EasyLog.enable = enable;
+//        EasyLog.mEnable = mEnable;
 //    }
 //
 //    @Around("method() || constructor()")

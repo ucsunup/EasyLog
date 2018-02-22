@@ -1,19 +1,20 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.ucsunup.easylog'
 
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
+        google()
+        jcenter()
         maven {
-            url uri("http://localhost:8081/repository/maven-dev/")
+            url uri("${NEXUS_URL}")
         }
     }
-
     dependencies {
         classpath 'com.ucsunup.easylog:easylog-plugin:1.0.0'
     }
 }
+
+apply plugin: 'com.ucsunup.easylog'
 
 android {
     compileSdkVersion 26
@@ -27,13 +28,12 @@ android {
     }
     buildTypes {
         release {
+            easylog.enabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            easylog {
-                enabled false
-            }
+            easylog.enabled true
         }
     }
 }

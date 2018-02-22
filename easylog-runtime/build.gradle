@@ -18,6 +18,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -28,11 +32,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    api 'org.aspectj:aspectjrt:1.8.13'
-    api 'com.ucsunup.easylog:easylog-annotations:1.0.0'
+    implementation 'org.aspectj:aspectjrt:1.8.13'
     testImplementation 'junit:junit:4.12'
+    implementation project(path: ':easylog-annotations')
 }
 
 android.libraryVariants.all { variant ->
@@ -75,12 +77,12 @@ android.libraryVariants.all { variant ->
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "${NEXUS_URL}/repository/maven-dev/") {
+            repository(url: "${NEXUS_URL}") {
                 authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
             }
             pom.groupId = "com.ucsunup.easylog"
             pom.artifactId = 'easylog-runtime'
-            pom.version = '1.0.0'
+            pom.version = "${VERSION_CODE}"
         }
     }
 }
