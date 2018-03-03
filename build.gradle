@@ -12,8 +12,15 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'org.aspectj:aspectjtools:1.8.13'
+        // Gradle Android Maven plugin
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        // Gradle Bintray Plugin
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 allprojects {
     repositories {
@@ -21,10 +28,14 @@ allprojects {
         jcenter()
         google()
         maven {
-            url uri("${NEXUS_URL}")
+            url uri(localProperties.getProperty("NEXUS_URL"))
         }
     }
-    apply plugin: 'maven'
+//    apply plugin: 'maven'
+    //Gradle Android Maven plugin
+    apply plugin: 'com.github.dcendents.android-maven'
+    //Gradle Bintray Plugin
+    apply plugin: 'com.jfrog.bintray'
 }
 
 //task clean(type: Delete) {

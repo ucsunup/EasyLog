@@ -1,12 +1,14 @@
 apply plugin: 'com.android.application'
 
 buildscript {
+    Properties localProperties = new Properties()
+    localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
     repositories {
         mavenCentral()
         google()
         jcenter()
         maven {
-            url uri("${NEXUS_URL}")
+            url uri(localProperties.getProperty("NEXUS_URL"))
         }
     }
     dependencies {

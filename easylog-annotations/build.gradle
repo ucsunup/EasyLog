@@ -7,16 +7,4 @@ dependencies {
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-// 上传到本地代码库
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "${NEXUS_URL}") {
-                authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
-            }
-            pom.groupId = "com.ucsunup.easylog"
-            pom.artifactId = 'easylog-annotations'
-            pom.version = "${VERSION_CODE}"
-        }
-    }
-}
+apply from: '../publish.gradle'

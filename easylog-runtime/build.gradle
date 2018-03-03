@@ -73,16 +73,4 @@ android.libraryVariants.all { variant ->
     }
 }
 
-// 上传到本地代码库
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "${NEXUS_URL}") {
-                authentication(userName: NEXUS_NAME, password: NEXUS_PWD)
-            }
-            pom.groupId = "com.ucsunup.easylog"
-            pom.artifactId = 'easylog-runtime'
-            pom.version = "${VERSION_CODE}"
-        }
-    }
-}
+apply from: '../publish_v1.gradle'

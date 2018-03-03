@@ -38,6 +38,5 @@ public class MainActivity extends AppCompatActivity {
     @Loga(level = Level.ERROR)
     private void testEasyLog() {
         Logi.i("Logd test");
-        Logi.d("logd test debug");
     }
 }
