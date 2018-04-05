@@ -5,12 +5,18 @@ You can visit [The website](Https://ucsunup.github.io/EasyLog/)
 
 ### Use
 
-EasyLog is a util for logging info.
+EasyLog is a util for logging info with Android.
 
 ```markdown
-@Logit
+@Loga
 public void getData() {
 	// do sth
+	Logi.d();
+}
+
+@Loga(level = Level.DEBUG, printArgs = true)
+public void setData() {
+    // do sth
 }
 ```
 
