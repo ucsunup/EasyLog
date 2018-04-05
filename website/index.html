@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h2>A dev-tool <strong>Log</strong> for Android and Java. ( Fork <a
+                <h2>A dev-tool <strong>Log</strong> for Android. ( Fork <a
                         href="https://github.com/JakeWharton/hugo" style="color: white">Hugo</a> )
                 </h2>
             </div>
@@ -55,21 +55,21 @@
                 <section id="introduction">
                     <h3>Introduction</h3>
                     <p>EasyLog help you log easily, it will calculate time of method.</p>
-                    <pre class="prettyprint">@Logit
+                    <pre class="prettyprint">@Loga
 public void getData {
   // do sth
 }</pre>
-                    <p>The <code>Logit</code> annotation support the <code>java method</code>.</p>
-                    <pre class="prettyprint">@Logit(type = Logit.Type.Release, append = "more info")
+                    <p>The <code>Loga</code> annotation support the <code>java method</code>.</p>
+                    <pre class="prettyprint">@Loga(level = Level.DEBUG, printArgs = true)
 public void getData {
   // do sth
 }</pre>
-                    <p><code>Logit</code> can support to log in defined version. You can also put
-                        more info into log.</p>
+                    <p><code>Loga</code> can support to log in different level. You can also choose
+                        to print arguments of method.</p>
                     <p>Use annotations to describe the log info:</p>
                     <ul>
-                        <li>Log version</li>
-                        <li>More detail info</li>
+                        <li>Log level</li>
+                        <li>Arguments of method</li>
                     </ul>
                 </section>
 
@@ -80,17 +80,18 @@ public void getData {
 
                     <h4>Log Method</h4>
                     <p> Method have an EasyLog annotation that provides the info to log.</p>
-                    <pre class="prettyprint">@Logit</pre>
+                    <pre class="prettyprint">@Loga</pre>
                     <p>You can also specify parameters in the annotation.</p>
-                    <pre class="prettyprint">@Logit(type = Logit.Type.Release, append = "more info")</pre>
+                    <pre class="prettyprint">@Loga(level = Level.DEBUG, printArgs = true)</pre>
 
                     <h4>Log util</h4>
                     <p>You can also use EasyLog utils to log where you want.</p>
-                    <pre class="prettyprint">Loghere.d(TAG, "info");</pre>
+                    <pre class="prettyprint">Logi.d(KEY, VALUE);
+Logi.d(VALUE);</pre>
 
                     <section id="download">
                         <h3>Download</h3>
-                        <p><a href="" class="dl version-href">&darr; <span class="version-tag">Latest</span>
+                        <p><a href="https://search.maven.org/remote_content?g=com.ucsunup.easylog&a=easylog-plugin&v=LATEST" class="dl version-href">&darr; <span class="version-tag">Latest</span>
                             JAR</a></p>
                         <!-- https://search.maven.org/remote_content?g=com.squareup.retrofit2&a=retrofit&v=LATEST -->
                         <p>The source code to the EasyLog, its samples, and this website is <a
@@ -98,13 +99,23 @@ public void getData {
                         </p>
                         <h4>Maven</h4>
                         <pre class="prettyprint">&lt;dependency>
-  &lt;groupId>com.ucsunup&lt;/groupId>
-  &lt;artifactId>easylog&lt;/artifactId>
+  &lt;groupId>com.ucsunup.easylog&lt;/groupId>
+  &lt;artifactId>easylog-plugin&lt;/artifactId>
   &lt;version><span class="version pln"><em>(insert latest version)</em></span>&lt;/version>
 &lt;/dependency></pre>
                         <h4>Gradle</h4>
-                        <pre class="prettyprint">
-compile 'com.ucsunup:easylog:<span class="version pln"><em>(insert latest version)</em></span>'
+                        <pre class="prettyprint">buildscript {
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.ucsunup.easylog:easylog-plugin:<span class="version pln"><em>(insert latest version)</em></span>'
+  }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.ucsunup.easylog'
 </pre>
                         <p>EasyLog requires at minimum Java 7 or Android 2.3.</p>
 
@@ -129,7 +140,7 @@ compile 'com.ucsunup:easylog:<span class="version pln"><em>(insert latest versio
 
                     <section id="license">
                         <h3>License</h3>
-                        <pre>Copyright 2017 ucsunup.
+                        <pre>Copyright 2018 ucsunup.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -195,7 +206,7 @@ limitations under the License.</pre>
         });
 
         // Look up the latest version of the library.
-        $.fn.artifactVersion('com.ucsunup', 'easylog', function(version, url) {
+        $.fn.artifactVersion('com.ucsunup.easylog', 'easylog-plugin', function(version, url) {
           $('.version').text(version);
           $('.version-tag').text('v' + version);
           $('.version-href').attr('href', url);
