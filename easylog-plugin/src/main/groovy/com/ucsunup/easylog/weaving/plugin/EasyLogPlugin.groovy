@@ -20,9 +20,9 @@ class EasyLogPlugin implements Plugin<Project> {
         }
 
         project.dependencies {
-            implementation 'org.aspectj:aspectjrt:1.8.13'
-            implementation 'com.ucsunup.easylog:easylog-runtime:1.0.0'
-            implementation 'com.ucsunup.easylog:easylog-annotations:1.0.0'
+            compile 'org.aspectj:aspectjrt:1.8.13'
+            compile 'com.ucsunup.easylog:easylog-runtime:1.0.1'
+            compile 'com.ucsunup.easylog:easylog-annotations:1.0.1'
         }
 
         final def log = project.logger

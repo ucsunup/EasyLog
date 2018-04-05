@@ -3,17 +3,17 @@
 buildscript {
 
     repositories {
-        google()
+        maven { url uri("https://maven.google.com") }
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:2.3.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'org.aspectj:aspectjtools:1.8.13'
         // Gradle Android Maven plugin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         // Gradle Bintray Plugin
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
@@ -26,12 +26,11 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
-        google()
+        maven { url uri("https://maven.google.com") }
         maven {
             url uri(localProperties.getProperty("NEXUS_URL"))
         }
     }
-//    apply plugin: 'maven'
     //Gradle Android Maven plugin
     apply plugin: 'com.github.dcendents.android-maven'
     //Gradle Bintray Plugin
